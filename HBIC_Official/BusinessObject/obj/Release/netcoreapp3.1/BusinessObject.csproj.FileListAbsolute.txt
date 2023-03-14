@@ -1,0 +1,9 @@
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\bin\Release\netcoreapp3.1\BusinessObject.deps.json
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\bin\Release\netcoreapp3.1\BusinessObject.dll
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\bin\Release\netcoreapp3.1\BusinessObject.pdb
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\obj\Release\netcoreapp3.1\BusinessObject.csprojAssemblyReference.cache
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\obj\Release\netcoreapp3.1\BusinessObject.AssemblyInfoInputs.cache
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\obj\Release\netcoreapp3.1\BusinessObject.AssemblyInfo.cs
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\obj\Release\netcoreapp3.1\BusinessObject.csproj.CoreCompileInputs.cache
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\obj\Release\netcoreapp3.1\BusinessObject.dll
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\BusinessObject\obj\Release\netcoreapp3.1\BusinessObject.pdb

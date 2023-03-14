@@ -1,0 +1,162 @@
+﻿@model BusinessObject.BOConfirmEmail
+@{
+    Layout = null;
+    var email = Model?.Email;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBIC - Xác thực tài khoản </title>
+    <link rel="icon" type="image/png" href="~/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/css/bootstrap.min.css">
+    <!--=========================================~/====================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <!--=========================================~/====================================================-->
+    <link rel="stylesheet" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--=========================================~/====================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+    <!--=========================================~/====================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+    <!--=========================================~/====================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+    <!--=========================================~/====================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/css/main.css">
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 pos-relative">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <a asp-controller="Home" asp-action="Index">
+                        <img src="~/img/registration.png" alt="IMG">
+                    </a>
+                </div>
+                <div class="form-group pos-absolute bottom-0 mb-22rem">
+                    <label for="agree-term" class="label-agree-term fs-14 d-inline"><a asp-controller="Account" asp-action="Login" class="term-service">I have already account</a></label>
+                </div>
+                @using (Html.BeginForm("ConfirmEmail", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "login100-form validate-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <span class="login100-form-title">
+                        Xác thực email
+                    </span>
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "input100", type = "text", name = "email", placeholder = "Email"})
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                   
+                    <div class="wrap-input100 validate-input" data-validate="Error code to authenticate">
+                        @Html.TextBoxFor(model => model.AuthCode, new { @class = "input100", type = "text", name = "email", placeholder = "Nhập mã code ..." })
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    
+                    </div>
+                    <div class="wrap-input100 form-group">
+                        <label for="agree-term" class="label-agree-term fs-14 d-inline float-right"><a onclick='RefreshAuthEmail()' class="term-service">Gửi lại mã</a></label>
+                    </div>
+                    @Html.ValidationSummary(true, null, new { @class = "fs-12", style = "color: red;" })
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Xác thực
+                        </button>
+                    </div>
+                }
+                @*<form class="login100-form validate-form">
+
+                        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                            <input class="input100" type="text" name="email" placeholder="Email">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                            <input class="input100" type="password" name="pass" placeholder="Password">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate="Please confirm your password correctly">
+                            <input class="input100" type="password" name="passwordConfirm" placeholder="Confirm your password">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term mr-2 align-middle" />
+                            <label for="agree-term" class="label-agree-term fs-14 d-inline"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <button type="submit" class="login100-form-btn">
+                                Sign up
+                            </button>
+                        </div>
+
+                        <div class="text-center p-t-80">
+                            <div class="row social-login">
+                                <span class="col-6 social-label fs-14">Or create with:</span>
+                                <div class="col col-6">
+                                    <ul class="row socials">
+                                        <li class=""><a href="#"><i class="display-flex-center zmdi zmdi-facebook fs-20 text-white" aria-hidden="true"></i></a></li>
+                                        <li class=""><a href="#"><i class="display-flex-center zmdi zmdi-google fs-20 text-white" aria-hidden="true"></i></a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </form>*@
+            </div>
+        </div>
+    </div>
+
+    <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--=========~/====================================================================================-->
+    <script src="~/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--=========~/====================================================================================-->
+    <script src="~/vendor/select2/select2.min.js"></script>
+    <!--=========~/====================================================================================-->
+    <script src="~/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+
+    </script>
+    <script src="~/js/login.js"></script>
+    <script>
+        function RefreshAuthEmail() {
+            var email = $("#Email").val();
+            $.ajax({
+                url: '@Url.Action("RefreshAutEmail", "User")'+'?email=' + email,
+                type: "GET",
+                success: function (data) {
+                    if (data.success) {
+                        alert("Gửi thành công!");
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        
+        };
+
+
+    </script>
+</body>
+</html>

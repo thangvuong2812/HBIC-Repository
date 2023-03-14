@@ -1,0 +1,15 @@
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\bin\Release\netcoreapp3.1\DataAccess.deps.json
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\bin\Release\netcoreapp3.1\DataAccess.runtimeconfig.json
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\bin\Release\netcoreapp3.1\DataAccess.runtimeconfig.dev.json
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\bin\Release\netcoreapp3.1\DataAccess.dll
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\bin\Release\netcoreapp3.1\DataAccess.pdb
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\bin\Release\netcoreapp3.1\BusinessObject.dll
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\bin\Release\netcoreapp3.1\BusinessObject.pdb
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\obj\Release\netcoreapp3.1\DataAccess.csprojAssemblyReference.cache
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\obj\Release\netcoreapp3.1\DataAccess.AssemblyInfoInputs.cache
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\obj\Release\netcoreapp3.1\DataAccess.AssemblyInfo.cs
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\obj\Release\netcoreapp3.1\DataAccess.csproj.CoreCompileInputs.cache
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\obj\Release\netcoreapp3.1\DataAccess.csproj.CopyComplete
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\obj\Release\netcoreapp3.1\DataAccess.dll
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\obj\Release\netcoreapp3.1\DataAccess.pdb
+E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\DataAccess\obj\Release\netcoreapp3.1\DataAccess.genruntimeconfig.cache

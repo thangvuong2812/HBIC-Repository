@@ -1,0 +1,133 @@
+﻿@model BusinessObject.BOAdmin_UnSubmit
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Quản lý tài khoản";
+}
+@section CssSection {
+    <link rel="stylesheet" href="~/vendor/datatables/dataTables.bootstrap4.min.css" />
+}
+
+@section ScriptsSection {
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="~/js/demo/datatables-demo.js"></script>
+    <script>
+       $(document).ready(function () {
+
+            let accountsJson = @Html.Raw(Json.Serialize(Model.UnsubmitUser));
+            var table = LoadDataToTable(accountsJson);
+            console.log(table.rows('.selected').data().pluck('userId').toArray());
+            @*var userIds = table.rows('.selected').data().pluck('userId').toArray();
+            var CheckOKPassInfoActionModal = (title, message,url) => {
+                $("#confirmActionModalLabel").html(title);
+                $("#confirmActionModalBody").html(message);
+                $("#confirmActionModal").modal("show");
+                $("#confirmBtn").click(function () {
+
+                    window.location.href = url;
+                });
+            }
+            //Deny button
+            $('#dataTable-btn-multideny').click(function () {
+
+                var url = "@Url.Action("DenyUsers", "Admin")" + "?userIds=" + userIds + "&returnUrl=" + "@Url.Action("MA_ApprovedAccounts", "Admin")";
+                CheckOKPassInfoActionModal("Từ chối duyệt", "Bạn có chắc muốn từ chối duyệt những tài khoản này?", url);
+
+                /*    alert(table.rows('.selected').data().length + ' row(s) selected');*/
+            });
+            //Approved button
+            $('#dataTable-btn-multiapproved').click(function () {
+                console.log(table.rows('.selected').data().pluck('userId').toArray());
+                var userIds = table.rows('.selected').data().pluck('userId').toArray();
+
+                window.location.href = "@Url.Action("","")" + "?userIds=" + userIds + "&returnUrl=" + "@Url.Action("MA_UnApprovedAccounts", "Admin")";
+                /*    alert(table.rows('.selected').data().length + ' row(s) selected');*/
+            });
+            //UnApprove button
+             $('#dataTable-btn-multiunapprove').click(function () {
+                console.log(table.rows('.selected').data().pluck('userId').toArray());
+                var userIds = table.rows('.selected').data().pluck('userId').toArray();
+
+                window.location.href = "@Url.Action("UnApproveUsers", "Admin")" + "?userIds=" + userIds + "&returnUrl=" + "@Url.Action("MA_UnApprovedAccounts", "Admin")";
+                /*    alert(table.rows('.selected').data().length + ' row(s) selected');*/
+            });*@
+        })
+    </script>
+}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Tài khoản chưa gửi duyệt</h1>
+    <button id="btn-exportRp" onclick="capture()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+    </button>
+</div>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách tài khoản chưa gửi duyệt</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>Tên đăng nhập</th>
+                        <th>Email</th>
+                        <th>Loại đối tượng</th>
+                        <th>Loại tài khoản</th>
+                        <th>Ngày tạo</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>Tên đăng nhập</th>
+                        <th>Email</th>
+                        <th>Loại đối tượng</th>
+                        <th>Loại tài khoản</th>
+                        <th>Ngày tạo</th>
+
+                    </tr>
+                </tfoot>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="detail-info-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">
+                    Thông tin người dùng
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="modal-form">
+                    <div id="modal-form-row" class="form-row">
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

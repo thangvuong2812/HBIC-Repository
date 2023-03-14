@@ -1,0 +1,201 @@
+﻿@model BusinessObject.BOSettingsAccount
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    ViewData["Title"] = "Đổi mật khẩu";
+
+    //List<HBIC_Official.Models.AccountType> accountTypes = ViewBag.ListAccountType;
+    //int? subjectID = ViewBag.SubjectTypeID as int?;
+
+    Console.WriteLine(ViewContext.RouteData.Values["action"].ToString());
+    var view = ViewContext.View.Path.Split("/").Last();
+}
+@section CssSection {
+   
+
+}
+<div class="bradcam_area bgs-auto p-5 bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <!-- <div class="bradcam_text">
+                    <h3>4536+ Jobs Available</h3>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!-- job_listing_area_start  -->
+<div class="job_listing_area pb-0 plus_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="job_filter white-bg">
+                    <div class="form_inner white-bg dropdown">
+                        <h3>Account</h3>
+                        <div class="dropdown-menu position-static border-0 float-none d-block">
+                            <a class="@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "detailaccount" ? "active" : string.Empty) dropdown-item rounded px-2 py-2 d-flex align-items-baseline" asp-action="DetailAccount">
+                                <i class="mr-1 text-secondary fa fa-user"></i>
+                                Thông tin tài khoản
+                            </a>
+                            <a class="active dropdown-item rounded px-2 py-2 d-flex align-items-baseline" asp-action="SettingsAccount">
+                                <i class="mr-1 fa fa-lock" aria-hidden="true"></i>
+                                Thiết lập tài khoản
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item px-2 py-2 d-flex align-items-baseline" asp-action="Logout">
+                                <i class="mr-1 text-secondary fa fa-sign-out" aria-hidden="true"></i>
+                                Log Out
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <div class="range_wrap">
+                        <label for="amount">Price range:</label>
+                        <div id="slider-range"></div>
+                        <p>
+                            <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-size: 14px; font-weight:400;">
+                        </p>
+                    </div>
+                    <div class="reset_btn">
+                        <button  class="boxed-btn3 w-100" type="submit">Reset</button>
+                    </div> -->
+                </div>
+            </div>
+            
+
+            <div class="col-lg-9">
+                <div class="recent_joblist_wrap">
+                    <div class="row">
+                        <div class="col-12">
+
+                            @using (Html.BeginForm("ChangeAvatar", "User",  FormMethod.Post ,new { @class = "recent_joblist bg-white", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <h4 class="mb-2">Ảnh đại hiện</h4>
+                                <div class="form-row bg-white">
+                                    <div class="col-12">
+                                        <div class="form-group">
+
+                                            <div class="img-fluid rounded text-center">
+                                                <img id="avatarImg" src="@(Model?.AvatarPath ?? "/img/undraw_profile.svg" )" width="160" height="160" /> <!-- Avatar img-->
+                                                <p class="mt-4">Ảnh (160 x 160)</p>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="custom-file form-group">
+                                                    <input type="file" asp-for="AvatarImage" class="custom-file-input" id="inputGroupFile01">
+                                                    @*@Html.TextBoxFor(o => o.AvatarImage, null , new { @class= "custom-file-input", type="file" , id = "inputGroupFile01" })*@
+                                                    <label id="lblInputGroupFile01" class="custom-file-label fs-16" for="inputGroupFile01">Choose file to update avatar</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="text-danger small">
+                                            @ViewBag.Message
+                                        </span>
+                                    </div>
+                                   
+
+                                </div>
+                                <div class="row my-4 justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="submit" class="boxed-btn3" value="Thay đổi" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-12">
+                            @using (Html.BeginForm("ChangePassword", "User", FormMethod.Post, new { @class = "recent_joblist bg-white" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <h4 class="mb-2">Đổi mật khẩu</h4>
+                                <div class="form-row bg-white">
+                                    <div class="col-12">
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(model => model.Password)
+                                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password", required = true })
+                                            @Html.ValidationMessageFor(model => model.Password, string.Empty, new { @class = "invalid-feedback" })
+
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(model => model.NewPassword)
+                                            @Html.TextBoxFor(model => model.NewPassword, new { @class = "form-control", type = "password", required = true })
+                                            @Html.ValidationMessageFor(model => model.NewPassword, string.Empty, new { @class = "invalid-feedback" })
+
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(model => model.ConfirmPassword)
+                                            @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", type = "password", required = true })
+                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, string.Empty, new { @class = "invalid-feedback" })
+
+                                        </div>
+                                    </div>
+                                    @Html.ValidationSummary(false, "", new { @class = "fs-12", style = "color: red;" })
+
+                                </div>
+                                <div class="row my-4 justify-content-center">
+                                    <div class="col-auto">
+                                        <input type="submit" class="boxed-btn3" value="Thay đổi" />
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- job_listing_area_end  -->
+
+    @section Scripts {
+       
+        <script>
+            $(document).ready(function () {
+                $(".validation-message").each(function () {
+                    var textMessage = $(this).text();
+                    if (textMessage !== "")
+                        $(this).removeClass("d-none");
+                })
+                var inputFileValue = "@Model.AvatarPath";
+                console.log(inputFileValue)
+                if (inputFileValue != "") {
+                    var fileName = inputFileValue.split("/").pop();
+                    $("#lblInputGroupFile01").html(fileName);
+                }
+
+                $("#inputGroupFile01").change(function (e) {
+                    if (e.target.files.length > 0) {
+                        var file = e.target.files[0];
+                        console.log(e.target.files)
+                        const isExist = checkFileType(["jpeg", "jpg", "png"], file.name);
+
+                        if (isExist == false) {
+                            e.target.value = "";
+                            return;
+                        }
+                        $("#lblInputGroupFile01").html(file.name);
+                        $("#avatarImg").attr("src", URL.createObjectURL(file))
+                    }
+                });
+            });
+      
+        </script>
+    }

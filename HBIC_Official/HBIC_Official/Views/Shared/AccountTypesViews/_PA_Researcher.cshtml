@@ -1,0 +1,141 @@
+﻿@model BusinessObject.BOUserInfo
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    
+    var selectedSpecialityGroup = new SelectList(ViewBag.SpecialiyGroups).FirstOrDefault(o => o.Value == Model.SpecialityGroupId.ToString());
+
+    var selectedSpeciality = new SelectList(ViewBag.Specialities).FirstOrDefault(o => o.Value == Model.SpecialityId.ToString());
+}
+<div class="col-12">
+    <h2>Nhà nghiên cứu</h2>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.FirstName, new { @class="font-weight-bold" })
+        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", type = "text", required = true })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.LastName, new { @class="font-weight-bold" })
+        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", type = "text", required = true })
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, new { @class="font-weight-bold" })
+
+        <div class="input-group">
+
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @type = Model.IsHideEmail == true ? "password" : "text", required = true })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    @*@Html.CheckBox(nameof(Model.IsHideEmail),true)*@
+                    <input type="checkbox" name="CoreUser.IsHideEmail" class="chkHidField" checked="@(Model.IsHideEmail == true ? "" : null)" value="true" onchange="this.value=this.checked" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.BirthDay, "Ngày sinh (MM/dd/yyyy)", new { @class="font-weight-bold" })
+        @Html.TextBoxFor(model => model.BirthDay, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", required = true })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Telephone, "Số điện thoại", new { @class="font-weight-bold" })
+        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", type = "text", required = true })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <label class="font-weight-bold" for="sltSpecializaGroup">Khối ngành học/công tác</label>
+    @Html.DropDownListFor(model => model.SpecialityGroupId, new SelectList(ViewBag.SpecialiyGroups, "Value", "Text", selectedSpecialityGroup), new { @class = "form-select form-group w-100", @id = "sltSpecialityGroup", required = true })
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <label class="font-weight-bold" for="sltDetailSpecialzes">Chi tiết ngành/học công tác</label>
+    @Html.DropDownListFor(model => model.SpecialityId, new SelectList(ViewBag.Specialities, "Value", "Text", selectedSpeciality), new { @class = "form-select form-group w-100", @id = "sltSpeciality", required = true })
+</div>
+<div class="col-12">
+    <label class="section_title font-weight-bold" for="inputGender">Giới tính</label>
+</div>
+<div class="col-6">
+    <div class="form-group d-flex lh-1-1 justify-content-center">
+        <label class="mr-2" for="radMale">Nam</label>
+        <div class="primary-radio">
+            @Html.RadioButtonFor(model => model.Sex, true, new { @class = "form-control", @id = "radMale", @checked = "checked" })
+            <label for="radMale"></label>
+        </div>
+    </div>
+</div>
+<div class="col-6">
+    <div class="form-group d-flex lh-1-1 justify-content-center">
+        <label class="mr-2" for="radFeMale">Nữ</label>
+        <div class="primary-radio">
+            @Html.RadioButtonFor(model => model.Sex, false, new { @class = "form-control", @id = "radFeMale" })
+            <label for="radFeMale"></label>
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Address, "Địa chỉ công tác", new { @class="font-weight-bold" })
+        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", type = "text", required = true })
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Certificate, "Chứng chỉ đạt được", new { @class="font-weight-bold" })
+        @Html.TextBoxFor(model => model.Certificate, new { @class = "form-control", type = "text", required = true })
+    </div>
+</div>
+<div class="col-12">
+    <label class="font-weight-bold" for="sltAchievement">Thành tựu đạt được</label>
+
+    <select id="sltAchievement" asp-for="@Model.Achievement" class="form-select form-group w-100" required>
+        <option value="sc">Bằng sáng chế</option>
+        <option value="nc">Bằng nghiên cứu</option>
+    </select>
+
+</div>
+<div class="col-12">
+    <label class="section_title font-weight-bold" for="sltRole">Chức danh</label>
+    <select id="sltRole" asp-for="@Model.Title" class="form-select form-group w-100" required>
+        <option value="gs">Giáo sư</option>
+        <option value="ts">Tiến sỹ</option>
+        <option value="ths">Thạc sỹ</option>
+    </select>
+</div>
+
+<div class="col-12">
+    <label class="font-weight-bold" for="inputLastName">Hợp tác với HBIC</label>
+</div>
+@{ for (int i = 0; i < Model.FieldHbicCoops.Count(); i++)
+    {
+        var id = Model.FieldHbicCoops[i].Value;
+        var name = Model.FieldHbicCoops[i].Text;
+        <div class="col-xl-4 col-md-4 col-sm-12">
+            <div class="custom-control form-group custom-checkbox">
+                @*id="@id" checked="@i.Selected" value="@id"*@
+                <input type="checkbox" class="custom-control-input" asp-for="@Model.FieldHbicCoops[i].Selected">
+                @*@Html.CheckBoxFor(model => fieldHbicCoops[i].Value,)*@
+                <label class="custom-control-label" asp-for="@Model.FieldHbicCoops[i].Selected">@name</label>
+                <input type="hidden" asp-for="@Model.FieldHbicCoops[i].Value" />
+                <input type="hidden" asp-for="@Model.FieldHbicCoops[i].Text" />
+            </div>
+        </div>
+    }
+}

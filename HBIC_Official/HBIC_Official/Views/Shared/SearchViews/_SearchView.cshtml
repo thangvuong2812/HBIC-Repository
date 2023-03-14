@@ -1,0 +1,195 @@
+﻿@model BusinessObject.SearchViewModels.BOSearch
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+       role="button" aria-expanded="true" aria-controls="collapseCardExample">
+        <h6 class="m-0 font-weight-bold text-primary">Bộ lọc tìm kiếm</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="collapseCardExample">
+        <div class="card-body">
+            @using (Html.BeginForm("SearchAccounts", "Admin", FormMethod.Post, new { @class = "login100-form validate-form" }))
+            {
+
+            <div class="row">
+
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GroupId, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.GroupId) })
+                        <select id="sltGroup" asp-items="@(new SelectList(Model.SubjectGroups, "Value", "Text"))" asp-for="@Model.GroupId" class="form-select form-group w-100">
+                            <option >...</option>
+
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SubjectId, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.SubjectId) })
+                        <select asp-for="@Model.SubjectId" asp-items="@(new SelectList(Model.Subjects, "Value", "Text"))" class="form-select form-group w-100" id="subjects" placeholder="Select upto 5 tags">
+                            <option>...</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TitleCode, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.TitleCode) })
+                        <select asp-for="@Model.TitleCode" asp-items="@(new SelectList(Model.Titles, "Value", "Text"))" class="form-select form-group w-100" id="sltTitle">
+                            <option value="@string.Empty">...</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Gender, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.Gender) })
+                        <select asp-for="@Model.Gender" class="form-select form-group w-100" id="sltTitle">
+                            <option>...</option>
+                            <option value="1">Nam</option>
+                            <option value="0">Nữ</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SpecialityGroupId, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.SpecialityGroupId) })
+                        <select asp-for="@Model.SpecialityGroupId" asp-items="@(new SelectList(Model.SpecialityGroups, "Value", "Text"))" class="form-select form-group w-100" id="subjects" placeholder="Select upto 5 tags">
+                            <option >...</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SpecialityId, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.SpecialityId) })
+                        <select id="sltSpeciality" asp-items="@(new SelectList(Model.Specialities, "Value", "Text"))" asp-for="@Model.SpecialityId" class="form-select form-group w-100">
+                            <option >...</option>
+
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="row">
+                        <div class="col-xl-5 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MinExpectedSalary, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.MinExpectedSalary) })
+                                @Html.TextBoxFor(model => model.MinExpectedSalary, new { @class = "form-control", type = "text" })
+
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-12 col-md-12 text-center m-auto">
+                            <span>~</span>
+                        </div>
+                        <div class="col-xl-5 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaxExpectedSalary, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.MaxExpectedSalary) })
+
+                                @Html.TextBoxFor(model => model.MaxExpectedSalary, new { @class = "form-control", type = "text" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="row">
+                        <div class="col-xl-5 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MinProceeds, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.MinProceeds) })
+                                @Html.TextBoxFor(model => model.MinProceeds, new { @class = "form-control", type = "text" })
+
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-12 col-md-12 text-center m-auto">
+                            <span>~</span>
+                        </div>
+                        <div class="col-xl-5 col-sm-12 col-md-12 elli">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaxProceeds, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.MaxProceeds) })
+
+                                @Html.TextBoxFor(model => model.MaxProceeds, new { @class = "form-control", type = "text" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="row">
+                        <div class="col-xl-5 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MinMobilizedCapital, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.MinMobilizedCapital) })
+                                @Html.TextBoxFor(model => model.MinMobilizedCapital, new { @class = "form-control", type = "text" })
+
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-12 col-md-12 text-center m-auto">
+                            <span>~</span>
+                        </div>
+                        <div class="col-xl-5 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaxMobilizedCapital, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.MaxMobilizedCapital) })
+
+                                @Html.TextBoxFor(model => model.MaxMobilizedCapital, new { @class = "form-control", type = "text" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="row">
+                        <div class="col-xl-5 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MinAuthorizedCapital, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.MinAuthorizedCapital) })
+                                @Html.TextBoxFor(model => model.MinAuthorizedCapital, new { @class = "form-control", type = "text" })
+
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-12 col-md-12 text-center m-auto">
+                            <span>~</span>
+                        </div>
+                        <div class="col-xl-5 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaxAuthorizedCapital, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.MaxAuthorizedCapital) })
+
+                                @Html.TextBoxFor(model => model.MaxAuthorizedCapital, new { @class = "form-control", type = "text" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-3 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EstablishYear, new { @class = "d-block text-truncate", Title = Html.DisplayNameFor(model => model.EstablishYear) })
+                        @Html.TextBoxFor(model => model.EstablishYear, new { @class = "form-control", type = "text" })
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <button id="btn-clear" asp-action="Reset" asp-controller="Admin" asp-fragment="@string.Empty" class="d-block btn btn-sm btn-primary shadow-sm float-right">
+                        <i class="fas fa-refresh fa-sm text-white-50"></i> Clear
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" id="btn-search" class="d-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-search fa-sm text-white-50"></i> Tìm kiếm
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

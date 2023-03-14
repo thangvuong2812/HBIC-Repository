@@ -1,0 +1,191 @@
+﻿@model BusinessObject.BOUserInfo
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Quản lý tài khoản - Profile";
+    var accounts = (List<Account>)ViewBag.Accounts;
+}
+@section CssSection {
+    <link rel="stylesheet" href="~/vendor/datatables/dataTables.bootstrap4.min.css" />
+    <style>
+        .details-control:hover {
+            background-color: #dff1fa;
+        }
+    </style>
+}
+
+@section ScriptsSection {
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="~/js/demo/datatables-demo.js">
+    </script>
+    <script>
+        let accountsJson = @Html.Raw(Json.Serialize(accounts));
+        console.log(accountsJson);
+        LoadDataToTable(accountsJson);
+    </script>
+    @*<script>
+        $(document).ready(function () {
+            $()
+        })
+    </script>*@
+}
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Tài khoản của tôi</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6>
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-md-center">
+            <div class="col-xl-3 col-md-3 col-sm-12">
+                <div class="img-thumbnail p-3">
+                    <div class="img-fluid rounded text-center">
+                        <img src="~/img/undraw_profile.svg" width="160" height="160" />
+                        <p class="mt-4">Ảnh (160 x 160)</p>
+                    </div>
+                   
+                        <form method="post" asp-controller="User" asp-action="ChangeAvatarFile" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+                            <div class="custom-file">
+                                <input type="file" name="file" class="custom-file-input" id="inputGroupFile01">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file to update avatar</label>
+                            </div>
+                            <div class="row my-4 justify-content-center">
+                                <div class="col-auto">
+                                    <input type="submit" class="boxed-btn3 small" value="Thay đổi" />
+                                </div>
+                            </div>
+                        </form>
+                       
+                
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+                @using (Html.BeginForm("UpdateAccount", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "recent_joblist bg-white" }))
+                {
+                    <div class="form-row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="inputUserName">Tên truy cập</label>
+                                <input readonly type="text" class="form-control" value="admin" id="inputUserName">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="inputFullName">Họ và tên</label>
+                                <input type="text" class="form-control" id="inputFullName">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" class="form-control" id="inputEmail">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="inputAddress">Địa chỉ</label>
+                                <input type="text" class="form-control" id="inputAddress">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputDOB">Ngày sinh</label>
+                                <input type="datetime" class="form-control" id="inputDOB">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputPhoneNumber">Số điện thoại</label>
+                                <input type="text" class="form-control" id="inputPhoneNumber">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="section_title" for="inputGender">Giới tính</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group d-flex lh-1-1 justify-content-center">
+                                <label class="mr-2" for="radMale">Nam</label>
+                                <div class="primary-radio">
+                                    <input name="radGender" type="radio" id="radMale">
+                                    <label for="radMale"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group d-flex lh-1-1 justify-content-center">
+                                <label class="mr-2" for="radFeMale">Nữ</label>
+                                <div class="primary-radio">
+                                    <input name="radGender" type="radio" id="radFeMale">
+                                    <label for="radFeMale"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group d-flex lh-1-1 justify-content-center">
+                                <label class="mr-2" for="radOther">Khác</label>
+                                <div class="primary-radio">
+                                    <input name="radGender" type="radio" id="radOther">
+                                    <label for="radOther"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row my-4 justify-content-center">
+                        <div class="col-auto">
+                            <input type="submit" class="boxed-btn3" value="Thay đổi" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        
+        <!-- DataTales Example -->
+
+
+    </div>
+</div>
+
+<!--Modal-->
+<div id="detail-info-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">
+                            Thông tin người dùng
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Message:</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary">Duyệt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+

@@ -1,0 +1,389 @@
+﻿@model BusinessObject.BOShowDetailInfo
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    Layout = "_Layout";
+    ViewData["Title"] = "Thông tin tài khoản";
+
+    bool isLogin = ViewBag.IsLogin;
+    int userId = ViewBag.UserId;
+}
+
+@section CssSection {
+
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/themify-icons.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/gijgo.css">
+    <link rel="stylesheet" href="~/css/animate.min.css">
+    <link rel="stylesheet" href="~/css/slicknav.css">
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/menu.css" />
+}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>@Model.DisplayName</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+
+<div class="job_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="job_details_header">
+                    <div class="single_jobs white-bg d-flex justify-content-between">
+                        <div class="jobs_left d-flex align-items-center">
+                            <div class="thumb">
+                                <img src="@Model.AvatarPath" class="w-100 h-100" alt="">
+                            </div>
+                            <div class="jobs_conetent">
+                                <a href="#"><h4 class="text-capitalize">@Model.DisplayName</h4></a>
+                                <div class="links_locat d-flex align-items-center">
+                                    <div class="location">
+                                        <p> <i class="fa fa-map-marker"></i> @Model.Address</p>
+                                    </div>
+                                    <div class="location">
+                                        <p> <i class="fa fa-tag"></i> @Model.SubjectTitle</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jobs_right">
+                            <div class="apply_now">
+                                <a class="heart_mark @(Model.IsLiked ? "selected" : string.Empty)" onclick="SelectedHeart(this)" href="#"> <i class="ti-heart"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descript_wrap white-bg">
+                    <div class="single_wrap">
+                        <h4>Job description</h4>
+                        <div id="desRow" class="row">
+                            @if (Model != null)
+                            {
+                                var propertyInfos = Model.GetType().GetProperties();
+                                foreach (var p in propertyInfos)
+                                {
+
+                                    var propValue = p.GetValue(Model)?.ToString();
+                                    var propName = p.Name;
+                                    Console.WriteLine(p.PropertyType.Name);
+                                    var displayName = Html.DisplayName(propName);
+                                    if (propValue != null && !string.IsNullOrEmpty(displayName))
+                                    {
+                                        if (propName.ToLower() == nameof(Model.AvatarPath).ToLower() || propName.ToLower() == nameof(Model.PortfolioPath).ToLower() || propName.ToLower() == nameof(Model.FinancialStatementFilePath).ToLower() || propName.ToLower() == nameof(Model.FirmProfilePath).ToLower())
+                                        {
+                                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    @Html.Label(propName, Html.DisplayName(propName), new { @class = "text-capitalize d-block text-truncate", Title = Html.DisplayName(propName) })
+                                                    @*<input readonly value="@propValue" class="form-control" />*@
+                                                    <a target="_blank" class="form-control text-truncate" href="@propValue">@(propValue?.Split("/")?.Last())</a>
+
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    @Html.Label(propName, Html.DisplayName(propName), new { @class = "text-capitalize d-block text-truncate", Title = Html.DisplayName(propName) })
+                                                    <input readonly value="@propValue" class="form-control text-truncate" />
+
+                                                </div>
+                                            </div>
+                                        }
+                                        <!--if (propName.ToLower() == nameof(Model.PortfolioPath).ToLower())
+                                        {
+                                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    @Html.Label(propName, Html.DisplayName(propName), new { @class = "text-capitalize d-block text-truncate", Title = Html.DisplayName(propName) })-->
+                                        @*<input readonly value="@propValue" class="form-control" />*@
+                                        <!--<a target="_blank" class="form-control text-truncate" href="@propValue">@(Model.PortfolioPath?.Split("/")?.Last())</a>
+
+                                                </div>
+                                            </div>
+                                        }
+                                        if (propName.ToLower() == nameof(Model.FinancialStatementFilePath).ToLower())
+                                        {
+                                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    @Html.Label(propName, Html.DisplayName(propName), new { @class = "text-capitalize d-block text-truncate", Title = Html.DisplayName(propName) })-->
+                                        @*<input readonly value="@propValue" class="form-control" />*@
+                                        <!--<a target="_blank" class="form-control text-truncate" href="@propValue">@(Model.FinancialStatementFilePath?.Split("/")?.Last())</a>
+
+                                                </div>
+                                            </div>
+                                        }
+                                        if (propName.ToLower() == nameof(Model.FirmProfilePath).ToLower())
+                                        {
+                                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    @Html.Label(propName, Html.DisplayName(propName), new { @class = "text-capitalize d-block text-truncate", Title = Html.DisplayName(propName) })-->
+                                        @*<input readonly value="@propValue" class="form-control" />*@
+                                        <!--<a target="_blank" class="form-control text-truncate" href="@propValue">@(Model.FirmProfilePath?.Split("/")?.Last())</a>
+
+                                                </div>
+                                            </div>
+                                        }-->
+
+
+                                    }
+                                }
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="apply_job_form white-bg">
+                    <h4>Contact with this account</h4>
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input_field">
+                                    <input type="text" placeholder="Your name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input_field">
+                                    <input type="text" placeholder="Email">
+                                </div>
+                            </div>
+                            @*<div class="col-md-12">
+                                    <div class="input_field">
+                                        <input type="text" placeholder="Website/Portfolio link">
+                                    </div>
+                                </div>*@
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button type="button" id="inputGroupFileAddon03">
+                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+                                        <label class="custom-file-label" for="inputGroupFile03">Upload attached file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="input_field">
+                                    <textarea name="#" id="" cols="30" rows="10" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="submit_btn">
+                                    <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="job_sumary">
+                    <div class="summery_header">
+                        <h3>Job Summery</h3>
+                    </div>
+                    <div class="job_content">
+                        <ul>
+                            <li>Published on: <span>12 Nov, 2019</span></li>
+                            <li>Vacancy: <span>2 Position</span></li>
+                            <li>Salary: <span>50k - 120k/y</span></li>
+                            <li>Location: <span>California, USA</span></li>
+                            <li>Job Nature: <span> Full-time</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="share_wrap d-flex">
+                    <span>Share at:</span>
+                    <ul>
+                        <li><a href="#"> <i class="fa fa-facebook"></i></a> </li>
+                        <li><a href="#"> <i class="fa fa-google-plus"></i></a> </li>
+                        <li><a href="#"> <i class="fa fa-twitter"></i></a> </li>
+                        <li><a href="#"> <i class="fa fa-envelope"></i></a> </li>
+                    </ul>
+                </div>
+                @*<div class="job_location_wrap">
+                        <div class="job_lok_inner">
+                            <div id="map" style="height: 200px;"></div>
+                            <script>
+                                function initMap() {
+                                    var uluru = { lat: 10.762622, lng: 106.660172 };
+                                    var grayStyles = [
+                                        {
+                                            featureType: "all",
+                                            stylers: [
+                                                { saturation: -90 },
+                                                { lightness: 50 }
+                                            ]
+                                        },
+                                        { elementType: 'labels.text.fill', stylers: [{ color: '#ccdee9' }] }
+                                    ];
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        center: { lat: 10.762622, lng: 106.660172 },
+                                        zoom: 9,
+                                        styles: grayStyles,
+                                        scrollwheel: false
+                                    });
+                                }
+
+                            </script>
+                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWTx7bREpM5B6JKdbzOvMW-RRlhkukmVE&callback=initMap"></script>
+
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div id="alertLoginModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-footer">
+                <a asp-action="Login" asp-controller="User" asp-route-returnUrl="@(Url.Action("ShowDetailInfo","User"))" type="button" class="btn btn-primary">Đến trang đăng nhập</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        const AddLikeUsers = (id) => {
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("AddLikeUsers", "User")",
+                data: { userId: id },
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        }
+
+        const DeleteLikeUsers = (id) => {
+            $.ajax({
+                type: 'Delete',
+                url: "@Url.Action("DeleteLikeUsers", "User")",
+                data: { userId: id },
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        }
+
+        const ShowLoginAlert = () => {
+            $("#alertLoginModal #modalLabel").html("Bạn cần đăng nhập tài khoản!");
+            $("#alertLoginModal").modal("show");
+        };
+
+        function SelectedHeart(heartEle) {
+            event.preventDefault();
+            //$(heartEle).toggleClass('selected');
+            var isLogin = '@(isLogin)'.toLowerCase() === 'true';
+
+            if (isLogin) {
+                var isSelected = $(heartEle).toggleClass('selected').hasClass('selected');
+                const params = window.location.pathname?.split('/').pop();
+                if (isSelected) {
+
+                    AddLikeUsers(params);
+                }
+                else {
+                    DeleteLikeUsers(params);
+                }
+            }
+            else {
+                ShowLoginAlert();
+            }
+        }
+                //$(document).ready(function () {
+                //    $("a.heart_mark").click(function (e) {
+                //        $(e.target).toggleClass('selected');
+                //        //e.preventDefault();
+                //    });
+                //})
+    </script>
+
+    @*<script>
+            $(document).ready(function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            })
+        </script>*@
+
+    <script>
+        @*$(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("GetUserInfoById", "User")' + "?userId=" + @Model.UserId,
+                context: this,
+                    type: "Get",
+                    success: function (res) {
+                        if (res.success) {
+                            console.log(res.data);
+                            $.map(res.data, function (prop, key) {
+                                if (prop != null && prop.PropertyValue !== "") {
+                                    if (prop.PropertyName.toLowerCase() == 'userid' || prop.PropertyName.toLowerCase() == 'authorizedstatus')
+                                        return;
+                                    var newEle = '';
+                                    if (prop.PropertyName.toLowerCase() == 'avatarpath') {
+                                        newEle = `
+                                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="${prop.PropertyName}" class="text-capitalize">${prop.DisplayName === "" ? prop.PropertyName : prop.DisplayName}</label>
+                                                      <a target="_blank" class="form-control" href="${prop.PropertyValue}">Show avatar</a>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+                                    else {
+                                        newEle = `
+                                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="${prop.PropertyName}" class="text-capitalize">${prop.DisplayName === "" ? prop.PropertyName : prop.DisplayName}</label>
+                                                    <input readonly value="${prop.PropertyValue}" class="form-control"/>
+
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+
+                                    $("#desRow").append(newEle);
+                                }
+                               });
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr);
+                    }
+            })
+        })*@
+    </script>
+}

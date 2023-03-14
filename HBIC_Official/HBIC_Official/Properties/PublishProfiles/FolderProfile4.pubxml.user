@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>E:\XamarinForms\Git\HBIC_Portal\HBIC_Official\HBIC_Official\bin\Release\netcoreapp3.1\publish\</_PublishTargetUrl>
+    <History>True|2022-12-20T07:32:31.0842231Z;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="HBICDev">
+      <Value>Server=192.168.1.183%3bDatabase=HBICDEV_DB%3buid=thang%3bpwd=abc%40123%3bMin Pool Size=10%3bMax Pool Size=300%3bPooling=true%3bConnect Timeout=10000%3b</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="HBICPro">
+      <Value>Server=192.168.1.183%3bDatabase=HBIC_DB%3buid=thang%3bpwd=abc%40123%3bMin Pool Size=10%3bMax Pool Size=300%3bPooling=true%3bConnect Timeout=10000%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,325 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Tài khoản cá nhân";
+    List<HBIC_Official.Models.AccountType> accountTypes = ViewBag.ListAccountType;
+    //int? subjectID = ViewBag.SubjectTypeID as int?;
+    
+}
+@section CssSection {
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/util.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/themify-icons.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/gijgo.css">
+    <link rel="stylesheet" href="~/css/animate.min.css">
+    <link rel="stylesheet" href="~/css/slicknav.css">
+
+    <link rel="stylesheet" href="~/css/style.css">
+
+}
+<div class="bradcam_area bgs-auto p-5 bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <!-- <div class="bradcam_text">
+                    <h3>4536+ Jobs Available</h3>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!-- job_listing_area_start  -->
+<div class="job_listing_area plus_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="job_filter white-bg">
+                    <div class="form_inner white-bg dropdown">
+                        <h3>Account</h3>
+                        <div class="dropdown-menu position-static border-0 float-none d-block">
+                            <a class="dropdown-item px-2 py-2 d-flex align-items-baseline" href="#">
+                                <i class="mr-1 text-secondary fa fa-user"></i>
+                                Personal Information
+                            </a>
+                            <a class="dropdown-item px-2 py-2 d-flex align-items-baseline" href="#">
+                                <i class="mr-1 text-secondary fa fa-lock" aria-hidden="true"></i>
+                                Login & Password
+                            </a>
+                            <a class="dropdown-item px-2 py-2 d-flex align-items-baseline" href="#">
+                                <i class="mr-1 text-secondary fa fa-gear"></i>
+                                Membership Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item px-2 py-2 d-flex align-items-baseline" href="#">
+                                <i class="mr-1 text-secondary fa fa-sign-out" aria-hidden="true"></i>
+                                Log Out
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <div class="range_wrap">
+                        <label for="amount">Price range:</label>
+                        <div id="slider-range"></div>
+                        <p>
+                            <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-size: 14px; font-weight:400;">
+                        </p>
+                    </div>
+                    <div class="reset_btn">
+                        <button  class="boxed-btn3 w-100" type="submit">Reset</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="recent_joblist_wrap">
+                    <div class="recent_joblist white-bg ">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h4>Job Listing</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="serch_cat d-flex justify-content-end">
+                                    <select>
+                                        <option data-display="Most Recent">Most Recent</option>
+                                        <option value="1">Marketer</option>
+                                        <option value="2">Wordpress </option>
+                                        <option value="4">Designer</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("Save", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "recent_joblist bg-white" }))
+                    {
+                        <h4 class="mb-2">Account Information</h4>
+                        <div class="form-row bg-white">
+                            <div class="col-xl-6 col-md-6 col-sm-12 py-3">
+                                <div id="person-account" class="@(ViewBag.AccountTypeID == 1 ? "bg-light" : string.Empty) border position-relative d-flex p-3 justify-content-between rounded">
+                                    <label class="pos-absolute w-full h-100 top-0 right-0" for="radPerson">
+
+                                        @Html.ActionLink(string.Empty, "DetailAccount", "User", new { accountTypeId = 1 }, new { @class = "d-block w-full h-100" })
+                                    </label>
+                                    <div class="">
+                                        <div class="primary-radio">
+                                            <input type="radio" name="radAccount" id="radPerson" @(ViewBag.AccountTypeID == 1 ? "checked" : string.Empty)>
+                                            <label for="radPerson"></label>
+                                        </div>
+                                        <h5 class="mt-2">Person Account</h5>
+                                        <p class="d-block m-0">A single type of use</p>
+                                    </div>
+                                    <div class="account-img fs-60 text-primary">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6 col-sm-12 py-3">
+                                <div id="company-account" class="@(ViewBag.AccountTypeID == 2 ? "bg-light" : string.Empty) border position-relative d-flex p-3 justify-content-between rounded">
+                                    <label class="pos-absolute w-full h-100 top-0 right-0" for="radCompany">
+                                        @Html.ActionLink(string.Empty, "DetailAccount", "User", new { accountTypeId = 2 }, new { @class = "d-block w-full h-100" })
+                                    </label>
+                                    <div class="">
+                                        <div class="primary-radio">
+                                            <input type="radio" name="radAccount" id="radCompany" @(ViewBag.AccountTypeID == 2 ? "checked" : string.Empty)>
+                                            <label for="radCompany"></label>
+                                        </div>
+                                        <h5 class="mt-2">Company Account</h5>
+                                        <p class="d-block m-0">Multi account use</p>
+                                    </div>
+                                    <div class="account-img fs-60 text-primary">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <label for="inputLastName">Nhóm đối tượng</label>
+
+                                <select id="sltSubject" class="form-select form-group w-100">
+                                    @if (accountTypes != null)
+                                    {
+
+                                        @foreach (var i in accountTypes)
+                                        {
+                                            string isSelected = i.AccountTypeId == ViewBag.SubjectTypeID ? string.Empty : "unset";
+                                            <option selected="@isSelected" value="@i.AccountTypeId">
+                                                @i.AccountTypeName
+                                            </option>
+
+                                        }
+                                    }
+                                </select>
+
+                            </div>
+                            <div class="col-12">
+
+                                @switch (ViewBag.SubjectTypeId)
+                                {
+                                    case 1:
+                                        <h2>Sinh viên/ Nhân viên</h2>
+                                        break;
+                                    case 2:
+                                        <h2>Nhà nghiên cứu</h2>
+                                        break;
+                                    case 3:
+                                        <h2>Trường ĐH/ Viện nghiên cứu</h2>
+                                        break;
+                                    case 4:
+                                        <h2>Công nghiệp phụ trợ</h2>
+                                        break;
+                                }
+                            </div>
+                            <!-- Personal Account-->
+                            
+
+                        </div>
+
+                        @*</form>
+                            <form class="recent_joblist bg-white">*@
+                        <h4 class="mb-2">Physical Address</h4>
+                        <div class="form-row">
+                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="inputLastName">Country</label>
+                                    <input type="text" class="form-control" id="inputLastName">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="inputLastName">City</label>
+                                    <input type="text" class="form-control" id="inputLastName">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="inputLastName">Address</label>
+                                    <input type="text" class="form-control" id="inputLastName">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="inputLastName">Postal Code</label>
+                                    <input type="text" class="form-control" id="inputLastName">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="inputLastName">Phone Number</label>
+                                    <input type="text" class="form-control" id="inputLastName">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file to upload CV/Portfolio</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputLastName">Hợp tác với HBIC</label>
+                            </div>
+                            <div class="col-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Nhận thông tin tuyển dụng từ đối tác của HBIC</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                    <label class="custom-control-label" for="customCheck2">Nhận dự án từ thành viên của hệ sinh thái HBIC</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                    <label class="custom-control-label" for="customCheck3">Nhận thông tin các sự kiện được tổ chức bởi HBIC và các đối tác ĐMST</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-auto">
+                                <input type="submit" class="boxed-btn3" value="Submit" />
+                            </div>
+                        </div>
+                    }
+                    
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- job_listing_area_end  -->
+
+@section Scripts {
+    <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/isotope.pkgd.min.js"></script>
+    <script src="~/js/ajax-form.js"></script>
+    <script src="~/js/waypoints.min.js"></script>
+    <script src="~/js/jquery.counterup.min.js"></script>
+    <script src="~/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/js/scrollIt.js"></script>
+    <script src="~/js/jquery.scrollUp.min.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script src="~/js/nice-select.min.js"></script>
+    <script src="~/js/jquery.slicknav.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    @*<script src="~/js/gijgo.min.js"></script>*@
+    <script src="~/js/range.js"></script>
+
+
+
+    <!--contact js-->
+    <script src="~/js/contact.js"></script>
+    <script src="~/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/js/jquery.form.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+    <script src="~/js/mail-script.js"></script>
+
+
+    <script src="~/js/main.js"></script>
+
+
+    <script>
+        $(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 24600,
+                values: [750, 24600],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1] + "/ Year");
+                }
+            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+                " - $" + $("#slider-range").slider("values", 1) + "/ Year");
+            $("#sltSubject").on("change", function (e) {
+
+                window.location.href = "https://localhost:44368/User/SelectAccount" + "?accountTypeID=" + @ViewBag.AccountTypeID + "&subjectTypeId=" + e.target.value;
+
+            });
+
+        });
+        
+       
+    </script>
+}

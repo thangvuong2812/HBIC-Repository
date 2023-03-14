@@ -1,0 +1,227 @@
+﻿@model BusinessObject.BOUserInfo
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    var selectedSpecialityGroup = new SelectList(ViewBag.SpecialiyGroups).FirstOrDefault(o => o.Value == Model.SpecialityGroupId.ToString());
+
+    var selectedSpeciality = new SelectList(ViewBag.Specialities).FirstOrDefault(o => o.Value == Model.SpecialityId.ToString());
+}
+<div class="col-12">
+    <h2>Trường đại học/Viện nghiên cứu</h2>
+</div>
+
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.GroupCompanyName, new { @class = "font-weight-bold" })
+
+        @Html.TextBoxFor(model => model.GroupCompanyName, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.GroupCompanyName, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.WebsiteAddress, new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.WebsiteAddress, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.WebsiteAddress, string.Empty, new { @class = "invalid-feedback" })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.EstablishYear, new { @class = "font-weight-bold" })
+
+        @Html.TextBoxFor(model => model.EstablishYear, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.EstablishYear, string.Empty, new { @class = "invalid-feedback" })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Email, new { @class = "font-weight-bold" })
+
+        <div class="input-group">
+
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @type = Model.IsHideEmail == true ? "password" : "text", required = true })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    @*@Html.CheckBox(nameof(Model.IsHideEmail),true)*@
+                    <input type="checkbox" name="CoreUser.IsHideEmail" class="chkHidField" checked="@(Model.IsHideEmail == true ? "" : null)" value="true" onchange="this.value=this.checked" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Address, new { @class = "font-weight-bold" })
+
+        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", type = "text" , required = true })
+        @Html.ValidationMessageFor(model => model.Address, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.FullName, new { @class = "font-weight-bold" })
+
+        <div class="input-group">
+
+            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @type = Model.IsHideFullName == true ? "password" : "text", required = true })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    @*@Html.CheckBox(nameof(Model.IsHideEmail),true)*@
+                    <input type="checkbox" name="CoreUser.IsHideFullName" class="chkHidField" checked="@(Model.IsHideFullName == true ? "" : null)" value="true" onchange="this.value=this.checked" />
+
+                </div>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.FullName, string.Empty, new { @class = "invalid-feedback" })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Telephone, new { @class = "font-weight-bold" })
+
+        <div class="input-group">
+
+            @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", @type = Model.IsHidePhoneNum == true ? "password" : "text", required = true })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    @*@Html.CheckBox(nameof(Model.IsHideEmail),true)*@
+                    <input type="checkbox" name="CoreUser.IsHidePhoneNum" class="chkHidField" checked="@(Model.IsHidePhoneNum == true ? "" : null)" value="true" onchange="this.value=this.checked" />
+
+                </div>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.Telephone, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.TaxCode, new { @class = "font-weight-bold" })
+
+        @Html.TextBoxFor(model => model.TaxCode, new { @class = "form-control", type = "text" })
+    </div>
+</div>
+
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.TaxCodeTime, new { @class = "font-weight-bold" })
+
+        @Html.TextBoxFor(model => model.TaxCodeTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Achievement, new { @class = "font-weight-bold" })
+
+        @Html.TextBoxFor(model => model.Achievement, new { @class = "form-control", type = "text" })
+    </div>
+</div>
+
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <label class="font-weight-bold" for="sltSpecializaGroup">Khối đào tạo</label>
+    @Html.DropDownListFor(model => model.SpecialityGroupId, new SelectList(ViewBag.SpecialiyGroups, "Value", "Text", selectedSpecialityGroup), new { @class = "form-select form-group w-100", @id = "sltSpecialityGroup", required = true })
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <label class="font-weight-bold" for="sltDetailSpecialzes">Chi tiết ngành đào tạo</label>
+    @Html.DropDownListFor(model => model.SpecialityId, new SelectList(ViewBag.Specialities, "Value", "Text", selectedSpeciality), new { @class = "form-select form-group w-100", @id = "sltSpeciality", required = true })
+</div>
+<div class="col-12">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Laboratories, new { @class = "font-weight-bold" })
+
+        <div class="input-group">
+
+            @Html.TextBoxFor(model => model.Laboratories, new { @class = "form-control", @type = Model.IsHideLabs == true ? "password" : "text" })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    @*@Html.CheckBox(nameof(Model.IsHideEmail),true)*@
+                    <input type="checkbox" name="CoreUser.IsHideLabs" class="chkHidField" checked="@(Model.IsHideLabs == true ? "" : null)" value="true" onchange="this.value=this.checked" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    @Html.LabelFor(model => model.IsHired, "Trường/Viện nghiên cứu có sẵn sàng cho thuê phòng thí nghiệm & máy móc/thiết bị nghiên cứu không", new { @class = "font-weight-bold" })
+
+</div>
+<div class="col-6">
+    <div class="form-group d-flex lh-1-1 justify-content-center">
+        <label class="mr-2" for="radYes">Có</label>
+        <div class="primary-radio">
+            @Html.RadioButton("IsHired", true, new { @class = "form-control", @id = "radYes", })
+            <label for="radYes"></label>
+        </div>
+    </div>
+</div>
+<div class="col-6">
+    <div class="form-group d-flex lh-1-1 justify-content-center">
+        <label class="mr-2" for="radNo">Không</label>
+        <div class="primary-radio">
+            @Html.RadioButton("IsHired", false, new { @class = "form-control", @id = "radNo", @checked = Model.IsHired.HasValue ? Model.IsHired.Value : true })
+            <label for="radNo"></label>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Machines, "Danh sách các loại máy móc/thiết bị phục vụ cho việc nghiên cứu", new { @class = "font-weight-bold" })
+
+        <div class="input-group">
+
+            @Html.TextBoxFor(model => model.Machines, new { @class = "form-control", @type = Model.IsHideMachines == true ? "password" : "text", required = true })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    @*@Html.CheckBox(nameof(Model.IsHideEmail),true)*@
+                    <input type="checkbox" name="IsHideMachines" class="chkHidField" checked="@(Model.IsHideMachines == true ? "" : null)" value="@Model.IsHideMachines" onchange="this.value=this.checked" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.ProjectsCompanyCoop, "Đã từng hợp tác nghiên cứu với tổ chức/dự án/công ty nào?", new { @class = "font-weight-bold" })
+
+        @Html.TextBoxFor(model => model.ProjectsCompanyCoop, new { @class = "form-control", type = "text"})
+    </div>
+</div>
+<div class="col-12">
+    <label class="font-weight-bold" for="inputLastName">Hợp tác với HBIC</label>
+</div>
+@{ for (int i = 0; i < Model.FieldHbicCoops.Count(); i++)
+    {
+        var id = Model.FieldHbicCoops[i].Value;
+        var name = Model.FieldHbicCoops[i].Text;
+        <div class="col-xl-4 col-md-4 col-sm-12">
+            <div class="custom-control form-group custom-checkbox">
+                @*id="@id" checked="@i.Selected" value="@id"*@
+                <input type="checkbox" class="custom-control-input" asp-for="@Model.FieldHbicCoops[i].Selected">
+                @*@Html.CheckBoxFor(model => fieldHbicCoops[i].Value,)*@
+                <label class="custom-control-label" asp-for="@Model.FieldHbicCoops[i].Selected">@name</label>
+                <input type="hidden" asp-for="@Model.FieldHbicCoops[i].Value" />
+                <input type="hidden" asp-for="@Model.FieldHbicCoops[i].Text" />
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,382 @@
+﻿@{
+    string userid = string.Empty;
+    string email = string.Empty;
+    string role = string.Empty;
+    var listClaim = ((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.ToList();
+    if (listClaim.Count != 0)
+    {
+        userid = ((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.ToList()[0].Value;
+        email = ((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.ToList()[1].Value;
+        role = ((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.ToList()[3].Value;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:url" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <title>@ViewData["Title"] - HBIC_Official</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/css/util.css">
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+    </style>
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/themify-icons.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/gijgo.css">
+    <link rel="stylesheet" href="~/css/animate.min.css">
+    <link rel="stylesheet" href="~/css/slicknav.css">
+
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/menu.css" />
+    @RenderSection("CssSection", false)
+</head>
+<body>
+    @*<header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HBIC_Official</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>*@
+    <header>
+        <div class="header-area">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid">
+                    <div class="header_bottom_border position-relative">
+                        <div class="row align-items-center">
+                            <div class="col-xl-2 col-lg-2">
+                                <div class="logo">
+                                    <a asp-controller="Home" asp-action="Index">
+                                        <img class="rounded rounded-lg w-100" height="59" src="~/img/HBIC-logo.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-lg-8">
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "isActive" : string.Empty)"><a asp-action="Index" asp-controller="Home">Home</a></li>
+                                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Who" ? "isActive" : string.Empty)"><a href="#">Who we are</a></li>
+                                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "What" ? "isActive" : string.Empty)"><a href="#">What we do</a></li>
+                                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Update" ? "isActive" : string.Empty)"><a href="#">Innovation Updates</a></li>
+                                            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Organisations" ? "isActive" : string.Empty)"><a href="#">Organisations Individuals</a></li>
+                                            @*<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Jobs" ? "isActive" : string.Empty)"><a href="./jobs.html">Browse Job</a></li>
+                                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "JobDetails" ? "isActive" : string.Empty)">
+                                                    <a href="#">pages <i class="ti-angle-down"></i></a>
+                                                    <ul class="submenu">
+                                                        <li><a href="./candidate.html">Candidates </a></li>
+                                                        <li><a asp-controller="JobDetails" asp-action="Index">job details </a></li>
+                                                        <li><a href="./elements.html">elements</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#">blog <i class="ti-angle-down"></i></a>
+                                                    <ul class="submenu">
+                                                        <li><a href="blog.html">blog</a></li>
+                                                        <li><a href="single-blog.html">single-blog</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="contact.html">Contact</a></li>*@
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 d-lg-block">
+
+                                <div class="Appointment mt-1">
+
+                                    @if (userid == string.Empty)
+                                    {
+                                        <div class="phone_num d-block">
+                                            <div class="account">
+                                                <a asp-controller="User" asp-action="Login">Log in</a>
+                                                <span class="text-white">/</span>
+                                                <a asp-controller="User" asp-action="Register">Register</a>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+
+                                        <div class="phone_num avatar d-xl-block">
+                                            <div class="dropdown">
+                                                @*<i class="fa fa-user-circle" aria-hidden="true"></i>*@
+                                                <button class="btn btn-secondary dropdown-toggle bg-transparent border-0" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    <img id="avatar" class="rounded-circle dropdown-toggle" height="45" width="45" alt="user avatar" />
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    @if (role == "admin")
+                                                    {
+                                                        <input class="dropdown-item" type="button" onclick="location.href='@Url.Action("Index", "Admin")'" value="Quản trị" />
+
+                                                        <div class="dropdown-divider"></div>
+                                                    }
+                                                    <input class="dropdown-item" type="button" onclick="location.href='@Url.Action("DetailAccount", "User")'" value="Tài khoản của bạn" />
+
+                                                    <input class="dropdown-item" type="button" value="Logout" onclick="location.href='@Url.Action("Logout", "User")'" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+
+
+                                    <div class="d-none d-lg-block">
+                                        <a class="boxed-btn3" href="#">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+
+                        </div>
+                        <div class="position-absolute text-white right-0 top-0 text-right text-nowrap">
+                            <small><a class="text-white" href="#">Vietnamese</a></small>/<small><a class="text-white" href="#">English</a></small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img class="rounded rounded-lg w-100" height="59" src="~/img/HBIC-logo.png" alt="">
+                                </a>
+                            </div>
+                            <p>
+
+                                connect@hbic.com <br>
+                                +(84)83 345 0206 <br>
+                                Science Space, Saigon <br>
+                                Hightech Part, Long Thanh My Ward, Thu Duc City, Ho Chi Minh City
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-youtube-play"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                 width="15" height="15"
+                                                 viewBox="0 0 50 50"
+                                                 style="fill:#f9f9ff">
+                                                <path d="M 9 4 C 6.2504839 4 4 6.2504839 4 9 L 4 41 C 4 43.749516 6.2504839 46 9 46 L 41 46 C 43.749516 46 46 43.749516 46 41 L 46 9 C 46 6.2504839 43.749516 4 41 4 L 9 4 z M 9 6 L 15.576172 6 C 12.118043 9.5981082 10 14.323627 10 19.5 C 10 24.861353 12.268148 29.748596 15.949219 33.388672 C 15.815412 33.261195 15.988635 33.48288 16.005859 33.875 C 16.023639 34.279773 15.962689 34.835916 15.798828 35.386719 C 15.471108 36.488324 14.785653 37.503741 13.683594 37.871094 A 1.0001 1.0001 0 0 0 13.804688 39.800781 C 16.564391 40.352722 18.51646 39.521812 19.955078 38.861328 C 21.393696 38.200845 22.171033 37.756375 23.625 38.34375 A 1.0001 1.0001 0 0 0 23.636719 38.347656 C 26.359037 39.41176 29.356235 40 32.5 40 C 36.69732 40 40.631169 38.95117 44 37.123047 L 44 41 C 44 42.668484 42.668484 44 41 44 L 9 44 C 7.3315161 44 6 42.668484 6 41 L 6 9 C 6 7.3315161 7.3315161 6 9 6 z M 18.496094 6 L 41 6 C 42.668484 6 44 7.3315161 44 9 L 44 34.804688 C 40.72689 36.812719 36.774644 38 32.5 38 C 29.610147 38 26.863646 37.459407 24.375 36.488281 C 22.261967 35.634656 20.540725 36.391201 19.121094 37.042969 C 18.352251 37.395952 17.593707 37.689389 16.736328 37.851562 C 17.160501 37.246758 17.523335 36.600775 17.714844 35.957031 C 17.941109 35.196459 18.033096 34.45168 18.003906 33.787109 C 17.974816 33.12484 17.916946 32.518297 17.357422 31.96875 L 17.355469 31.966797 C 14.016928 28.665356 12 24.298743 12 19.5 C 12 14.177406 14.48618 9.3876296 18.496094 6 z M 32.984375 14.986328 A 1.0001 1.0001 0 0 0 32 16 L 32 25 A 1.0001 1.0001 0 1 0 34 25 L 34 16 A 1.0001 1.0001 0 0 0 32.984375 14.986328 z M 18 16 A 1.0001 1.0001 0 1 0 18 18 L 21.197266 18 L 17.152344 24.470703 A 1.0001 1.0001 0 0 0 18 26 L 23 26 A 1.0001 1.0001 0 1 0 23 24 L 19.802734 24 L 23.847656 17.529297 A 1.0001 1.0001 0 0 0 23 16 L 18 16 z M 29.984375 18.986328 A 1.0001 1.0001 0 0 0 29.162109 19.443359 C 28.664523 19.170123 28.103459 19 27.5 19 C 25.578848 19 24 20.578848 24 22.5 C 24 24.421152 25.578848 26 27.5 26 C 28.10285 26 28.662926 25.829365 29.160156 25.556641 A 1.0001 1.0001 0 0 0 31 25 L 31 22.5 L 31 20 A 1.0001 1.0001 0 0 0 29.984375 18.986328 z M 38.5 19 C 36.578848 19 35 20.578848 35 22.5 C 35 24.421152 36.578848 26 38.5 26 C 40.421152 26 42 24.421152 42 22.5 C 42 20.578848 40.421152 19 38.5 19 z M 27.5 21 C 28.340272 21 29 21.659728 29 22.5 C 29 23.340272 28.340272 24 27.5 24 C 26.659728 24 26 23.340272 26 22.5 C 26 21.659728 26.659728 21 27.5 21 z M 38.5 21 C 39.340272 21 40 21.659728 40 22.5 C 40 23.340272 39.340272 24 38.5 24 C 37.659728 24 37 23.340272 37 22.5 C 37 21.659728 37.659728 21 38.5 21 z"></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget wow fadeInUp" data-wow-duration="1.1s" data-wow-delay=".4s">
+                            <h3 class="footer_title">
+                                About Us
+                            </h3>
+                            <ul>
+                                <li><a href="#">Who we are</a></li>
+                                <li><a href="#">What we do</a></li>
+                                <li><a href="#">Our Services</a></li>
+                                <li><a href="#">Who we serve</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget wow fadeInUp" data-wow-duration="1.2s" data-wow-delay=".5s">
+                            <h3 class="footer_title">
+                                Our Innovation Ecosystem
+                            </h3>
+                            <ul>
+                                <li><a href="#">Individuals</a></li>
+                                <li><a href="#">Organisations</a></li>
+                                <li><a href="#">Innovation updates</a></li>
+                                <li><a href="#">Cooporation Oportunities</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6 col-lg-4">
+                        <div class="footer_widget wow fadeInUp" data-wow-duration="1.3s" data-wow-delay=".6s">
+                            <h3 class="footer_title">
+                                Contact Us
+                            </h3>
+                            <form action="#" class="newsletter_form">
+                                <input type="text" placeholder="Enter your mail">
+                                <button type="submit">Subscribe</button>
+                            </form>
+                            @*<p class="newsletter_text">
+                                    Esteem spirit temper too say adieus who direct esteem esteems
+                                    luckily.
+                                </p>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right_text wow fadeInUp" data-wow-duration="1.4s" data-wow-delay=".3s">
+            <div class="container">
+                <div class="footer_border"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://hbcg.vn/" target="_blank">HBC</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <button style="z-index:99;" id="backtotopbtn" class="boxed-btn4 small position-fixed bottom-0 right-0 mr-3 mb-5">
+
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
+    @Html.Hidden("userId", userid)
+
+
+    <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/isotope.pkgd.min.js"></script>
+    <script src="~/js/ajax-form.js"></script>
+    <script src="~/js/waypoints.min.js"></script>
+    <script src="~/js/jquery.counterup.min.js"></script>
+    <script src="~/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/js/scrollIt.js"></script>
+    <script src="~/js/jquery.scrollUp.min.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script src="~/js/nice-select.min.js"></script>
+    <script src="~/js/jquery.slicknav.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    @*<script src="~/js/gijgo.min.js"></script>*@
+    <script src="~/js/range.js"></script>
+
+
+
+    <!--contact js-->
+    <script src="~/js/contact.js"></script>
+    <script src="~/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/js/jquery.form.js"></script>
+    <script src="~/js/mail-script.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+
+
+    <script src="~/js/main.js"></script>
+    <script src="~/js/file-extension.js"></script>
+    <script>
+        //$(window).scroll(function () {
+        //    sessionStorage.scrollTop = $(this).scrollTop();
+        //});
+        //$(document).ready(function () {
+        //    if (sessionStorage.scrollTop != "undefined") {
+        //        $(window).scrollTop(sessionStorage.scrollTop);
+        //    }
+        //});
+        $(document).ready(function () {
+
+            window.onscroll = function () {
+                if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+                    $("#backtotopbtn").show();
+                }
+                else {
+                    $("#backtotopbtn").hide();
+                }
+            }
+            var userid = $("#userId").val();
+
+            if (userid !== "" && userid !== null) {
+                $.ajax({
+                    url: '@Url.Action("GetAvatar", "User")' + "?UserId=" + userid,
+                    type: 'Get',
+                    success: function (res) {
+
+                        if (res.success) {
+
+                            var imgPath = res.data;
+                            $("#avatar").attr("src", imgPath);
+                        }
+                        else {
+                            $("#avatar").attr("src", "/img/undraw_profile.svg");
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr)
+                    }
+                });
+            }
+
+            $("#backtotopbtn").click(function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            })
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

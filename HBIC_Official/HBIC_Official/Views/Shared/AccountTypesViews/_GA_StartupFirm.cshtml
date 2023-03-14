@@ -1,0 +1,230 @@
+﻿@model BusinessObject.BOUserInfo
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    var selectedSpecialityGroup = new SelectList(ViewBag.SpecialiyGroups).FirstOrDefault(o => o.Value == Model.SpecialityGroupId.ToString());
+
+    var selectedSpeciality = new SelectList(ViewBag.Specialities).FirstOrDefault(o => o.Value == Model.SpecialityId.ToString());
+    //var countries = (List<SelectListItem>)ViewBag.Countries;
+    //SelectListItem selectedCountry = new SelectListItem();
+    //if (Model.Country !=null)
+    //    selectedCountry = countries.Where(o => o.Value.ToLower() == Model.Country.ToLower()).FirstOrDefault();
+}
+
+<div class="col-12">
+    <h2>Công ty khởi nghiệp</h2>
+</div>
+<div class="col-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.GroupCompanyName, "Tên tổ chức", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.GroupCompanyName, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.GroupCompanyName, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.WebsiteAddress, "Địa chỉ website", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.WebsiteAddress, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.WebsiteAddress, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.EstablishYear, "Năm thành lập", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.EstablishYear, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.EstablishYear, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Address)
+        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.Address, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.FullName, "Tên người đại diện liên hệ", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.FullName, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Telephone, "SĐT người liên hệ", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.Telephone, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.TaxCode, "Mã số thuế", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.TaxCode, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.TaxCode, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.TaxCodeTime, "Ngày cấp mã số thuế", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.TaxCodeTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Department, "Tên bộ phận", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.Department, new { @class = "form-control", type = "text" })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Email, "Email liên hệ", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", type = "text", required = true })
+        @Html.ValidationMessageFor(model => model.Email, string.Empty, new { @class = "invalid-feedback" })
+
+    </div>
+</div>
+
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <label class="font-weight-bold" for="sltSpecializaGroup">Lĩnh vực kinh doanh</label>
+    @Html.DropDownListFor(model => model.SpecialityGroupId, new SelectList(ViewBag.SpecialiyGroups, "Value", "Text", selectedSpecialityGroup), new { @class = "form-select form-group w-100", @id = "sltSpecialityGroup", required = true })
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <label class="font-weight-bold" for="sltDetailSpecialzes">Chi tiết lĩnh vực kinh doanh</label>
+    @Html.DropDownListFor(model => model.SpecialityId, new SelectList(ViewBag.Specialities, "Value", "Text", selectedSpeciality), new { @class = "form-select form-group w-100", @id = "sltSpeciality", required = true })
+</div>
+
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.MobilizedCapital, "Vốn huy động", new { @class = "font-weight-bold" })
+        <div class="input-group">
+
+            @Html.TextBoxFor(model => model.MobilizedCapital, new { @class = "form-control", @type = Model.IsHideMobilizedCapital == true ? "password" : "text", required = true })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    @*@Html.CheckBox(nameof(Model.IsHideEmail),true)*@
+                    @*<input type="checkbox" name="@Model.IsHideMobilizedCapital" class="chkHidField" checked="@(Model.IsHideMobilizedCapital == true ? "" : null)" value="true" onchange="this.value=this.checked" />*@
+                    @Html.CheckBox(nameof(Model.IsHideMobilizedCapital), Model.IsHideMobilizedCapital, new { @class = "chkHidField" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.AuthorizedCapital, "Vốn điều lệ", new { @class = "font-weight-bold" })
+        <div class="input-group">
+
+            @Html.TextBoxFor(model => model.AuthorizedCapital, new { @class = "form-control", @type = Model.IsHideAuthorizedCapital == true ? "password" : "text", required = true })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    @*@Html.CheckBox(nameof(Model.IsHideEmail),true)*@
+                    @*<input type="checkbox" name="@Model.IsHideAuthorizedCapital" class="chkHidField" checked="@(Model.IsHideAuthorizedCapital == true ? "" : null)" value="true" onchange="this.value=this.checked" />*@
+                    @Html.CheckBox(nameof(Model.IsHideAuthorizedCapital), Model.IsHideAuthorizedCapital, new { @class = "chkHidField" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.AttendeeNumber, "Số lượng nhân viên", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.AttendeeNumber, new { @class = "form-control", type = "text" })
+    </div>
+</div>
+<div class="col-xl-6 col-md-6 col-sm-12">
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.FirstProductTime, "Thời điểm ra mắt sản phẩm đầu tiên?", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.FirstProductTime, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+
+
+    </div>
+</div>
+@*<div class="col-12">
+        <label class="section_title" for="inputIsHardLookPartner">Công ty gặp khó khăn trong việc tìm đối tác?</label>
+    </div>
+    <div class="col-4">
+        <div class="form-group d-flex lh-1-1 justify-content-center">
+            <label class="mr-2" for="radYes">Có</label>
+            <div class="primary-radio">
+                <input name="inputIsHardLookPartner" type="radio" id="radYes">
+                <label for="radYes"></label>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group d-flex lh-1-1 justify-content-center">
+            <label class="mr-2" for="radNo">Không</label>
+            <div class="primary-radio">
+                <input name="inputIsHardLookPartner" type="radio" id="radNo">
+                <label for="radNo"></label>
+            </div>
+        </div>
+    </div>*@
+<div class="col-xl-4 col-md-4 col-sm-12">
+    <div class="custom-control form-group custom-checkbox">
+
+        @Html.CheckBox(nameof(Model.IsHardLookPartner), Model.IsHardLookPartner, new { @class = "custom-control-input"})
+        @Html.LabelFor(model => model.IsHardLookPartner, new { @class = "custom-control-label"})
+
+    </div>
+</div>
+<div class="col-xl-4 col-md-4 col-sm-12">
+    <div class="custom-control form-group custom-checkbox">
+
+        @Html.CheckBox(nameof(Model.IsNeedAdvisory), Model.IsNeedAdvisory , new { @class = "custom-control-input" })
+        @Html.LabelFor(model => model.IsNeedAdvisory, new { @class = "custom-control-label" })
+    </div>
+</div>
+<div class="col-xl-4 col-md-4 col-sm-12">
+    <div class="custom-control form-group custom-checkbox">
+        @Html.CheckBox(nameof(Model.IsNeedHired), Model.IsNeedHired, new { @class = "custom-control-input" })
+
+        @Html.LabelFor(model => model.IsNeedHired, new { @class = "custom-control-label"})
+    </div>
+</div>
+
+
+<div class="col-12">
+    <label class="font-weight-bold" for="inputLastName">Hợp tác với HBIC</label>
+</div>
+@{ for (int i = 0; i < Model.FieldHbicCoops.Count(); i++)
+    {
+        var id = Model.FieldHbicCoops[i].Value;
+        var name = Model.FieldHbicCoops[i].Text;
+        <div class="col-xl-4 col-md-4 col-sm-12">
+            <div class="custom-control form-group custom-checkbox">
+                @*id="@id" checked="@i.Selected" value="@id"*@
+                <input type="checkbox" class="custom-control-input" asp-for="@Model.FieldHbicCoops[i].Selected">
+                @*@Html.CheckBoxFor(model => fieldHbicCoops[i].Value,)*@
+                <label class="custom-control-label" asp-for="@Model.FieldHbicCoops[i].Selected">@name</label>
+                <input type="hidden" asp-for="@Model.FieldHbicCoops[i].Value" />
+                <input type="hidden" asp-for="@Model.FieldHbicCoops[i].Text" />
+            </div>
+        </div>
+    }
+}

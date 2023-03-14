@@ -1,0 +1,664 @@
+﻿@model BusinessObject.BOUserInfo
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Detail Account";
+    //List<HBIC_Official.Models.AccountType> accountTypes = ViewBag.ListAccountType;
+    //int? subjectID = ViewBag.SubjectTypeID as int?;
+
+    var filePath = Model.PortfolioPath?.Split("/").LastOrDefault();
+
+}
+@section CssSection {
+    <link rel="stylesheet" href="~/css/util.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/themify-icons.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/gijgo.css">
+    <link rel="stylesheet" href="~/css/animate.min.css">
+    <link rel="stylesheet" href="~/css/slicknav.css">
+
+    <link rel="stylesheet" href="~/css/style.css">
+
+}
+<div class="bradcam_area bgs-auto p-5 bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <!-- <div class="bradcam_text">
+                    <h3>4536+ Jobs Available</h3>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!-- job_listing_area_start  -->
+<div class="job_listing_area plus_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="job_filter white-bg">
+                    <div class="form_inner white-bg dropdown">
+                        <h3>Account</h3>
+                        <div class="dropdown-menu position-static border-0 float-none d-block">
+                            <a class="@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "detailaccount" ? "active" : string.Empty) dropdown-item px-2 py-2 d-flex align-items-baseline" asp-action="DetailAccount">
+                                <i class="mr-1 text-secondary fa fa-user"></i>
+                                Personal Information
+                            </a>
+                            <a class="@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "changepassword" ? "active" : string.Empty) dropdown-item px-2 py-2 d-flex align-items-baseline" asp-action="ChangePassword">
+                                <i class="mr-1 text-secondary fa fa-lock" aria-hidden="true"></i>
+                                Đổi mật khẩu
+                            </a>
+                            <a class="@(ViewContext.RouteData.Values["action"].ToString().ToLower() == "settings" ? "active" : string.Empty) dropdown-item px-2 py-2 d-flex align-items-baseline" href="#">
+                                <i class="mr-1 text-secondary fa fa-gear"></i>
+                                Membership Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item px-2 py-2 d-flex align-items-baseline" href="#">
+                                <i class="mr-1 text-secondary fa fa-sign-out" aria-hidden="true"></i>
+                                Log Out
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <div class="range_wrap">
+                        <label for="amount">Price range:</label>
+                        <div id="slider-range"></div>
+                        <p>
+                            <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-size: 14px; font-weight:400;">
+                        </p>
+                    </div>
+                    <div class="reset_btn">
+                        <button  class="boxed-btn3 w-100" type="submit">Reset</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="recent_joblist_wrap">
+                    <div class="recent_joblist white-bg ">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <h4 class="mb-2">Trạng thái tài khoản</h4>
+                                @{
+                                    switch (Model.AuthorizedStatus)
+                                    {
+                                        case (int)HBIC_Official.Code.HBIC_Const.AuthorizedStatus.Approved:
+                                            <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
+                                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                <div class="ml-2">
+                                                    Tài khoản đã được duyệt!
+                                                </div>
+                                            </div>
+                                            break;
+                                        case (int)HBIC_Official.Code.HBIC_Const.AuthorizedStatus.UnApproved:
+                                            <div class="alert alert-warning d-flex align-items-center mb-0" role="alert">
+                                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+
+                                                <div class="ml-2">
+                                                    Tài khoản của bạn đang được kiểm duyệt!
+                                                </div>
+                                            </div>
+                                            break;
+                                        case (int)HBIC_Official.Code.HBIC_Const.AuthorizedStatus.Deny:
+                                            <div class="alert alert-danger d-flex align-items-center mb-0" role="alert">
+                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+
+                                                <div class="ml-2">
+                                                    Tài khoản đã bị từ chối. <a href="#" class="alert-link">Ấn vào đây để xem chi tiết</a>
+                                                </div>
+                                            </div>
+                                            break;
+                                        default:
+                                            <div class="alert alert-secondary d-flex align-items-center mb-0" role="alert">
+                                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+
+                                                <div class="ml-2">
+                                                    Vui lòng điền và gửi thông tin để tài khoản được kiểm duyệt
+                                                </div>
+                                            </div>
+                                            break;
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("SubmitInfo", "User", FormMethod.Post, new { @class = "recent_joblist bg-white", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <h4 class="mb-2">Account Information</h4>
+                        <div class="form-row bg-white">
+                            <div class="col-xl-6 col-md-6 col-sm-12 py-3">
+                                <div id="person-account" class="@(Model.GroupId == 1 ? "light-blue-bg" : string.Empty) border position-relative d-flex p-3 justify-content-between rounded">
+                                    <label class="pos-absolute w-full h-100 top-0 right-0" for="radPerson">
+
+                                        @Html.ActionLink(string.Empty, "SelectGroup", "User", new { accountTypeId = 1 }, new { @class = "d-block w-full h-100" })
+                                    </label>
+                                    <div class="">
+                                        <div class="primary-radio">
+                                            <input type="radio" name="radAccount" id="radPerson" @(Model.GroupId == 1 ? "checked" : string.Empty)>
+                                            <label for="radPerson"></label>
+                                        </div>
+                                        <h5 class="mt-2">Person Account</h5>
+                                        <p class="d-block m-0">A single type of use</p>
+                                    </div>
+                                    <div class="account-img fs-60 text-primary">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-md-6 col-sm-12 py-3">
+                                <div id="company-account" class="@(Model.GroupId == 2 ? "light-blue-bg" : string.Empty) border position-relative d-flex p-3 justify-content-between rounded">
+                                    <label class="pos-absolute w-full h-100 top-0 right-0" for="radCompany">
+                                        @Html.ActionLink(string.Empty, "SelectGroup", "User", new { accountTypeId = 2 }, new { @class = "d-block w-full h-100" })
+                                    </label>
+                                    <div class="">
+                                        <div class="primary-radio">
+                                            <input type="radio" name="radAccount" id="radCompany" @(Model.GroupId == 2 ? "checked" : string.Empty)>
+                                            <label for="radCompany"></label>
+                                        </div>
+                                        <h5 class="mt-2">Company Account</h5>
+                                        <p class="d-block m-0">Multi account use</p>
+                                    </div>
+                                    <div class="account-img fs-60 text-primary">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <label for="inputLastName">Nhóm đối tượng</label>
+
+                                <select id="sltSubject" asp-for="@Model.SubjectId" class="form-select form-group w-100" asp-items="@(new SelectList(ViewBag.Subjects, "SysId", "Title"))">
+                                    @*@if (accountTypes != null)
+                                        {
+
+                                            @foreach (var i in accountTypes)
+                                            {
+                                                string isSelected = i.AccountTypeId == ViewBag.SubjectTypeID ? string.Empty : "unset";
+                                                <option selected="@isSelected" value="@i.AccountTypeId">
+                                                    @i.AccountTypeName
+                                                </option>
+
+                                            }
+                                        }*@
+                                </select>
+
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+
+                                    @Html.LabelFor(model => model.UserName)
+                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", type = "text", @readonly = true })
+                                </div>
+                            </div>
+                            @if (Model.SubjectId != null)
+                            {
+
+                                @switch (Model.SubjectId)
+                                {
+                                    case 1:
+
+                                        @await Html.PartialAsync("../Shared/AccountTypesViews/_PA_StudyEmp", Model);
+                                        break;
+                                    case 2:
+
+                                        @await Html.PartialAsync("../Shared/AccountTypesViews/_PA_Researcher", Model);
+                                        break;
+                                    case 3:
+
+                                        @await Html.PartialAsync("../Shared/AccountTypesViews/_GA_College", Model);
+                                        break;
+                                    case 4:
+
+                                        @await Html.PartialAsync("../Shared/AccountTypesViews/_GA_SupportingIndustries", Model);
+                                        break;
+                                    case 5:
+
+                                        @await Html.PartialAsync("../Shared/AccountTypesViews/_GA_StartupFirm", Model);
+                                        break;
+                                    case 6:
+
+                                        @await Html.PartialAsync("../Shared/AccountTypesViews/_GA_InvestmentFund", Model);
+                                        break;
+                                    case 7:
+
+                                        @await Html.PartialAsync("../Shared/AccountTypesViews/_GA_Coporation", Model);
+                                        break;
+                                }
+                            }
+
+
+                        </div>
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-auto">
+                                <input type="submit" class="boxed-btn3" value="Submit" />
+                            </div>
+                        </div>
+                    }
+
+                    @using (Html.BeginForm("UploadFile", "User", FormMethod.Post, new { @class = "recent_joblist bg-white", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <h4 class="mb-2">Hồ sơ tài khoản</h4>
+                        <div class="form-row bg-white">
+
+                            @if (Model.SubjectId != null)
+                            {
+
+                                @switch (Model.SubjectId)
+                                {
+                                    case 1:
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>CV/Portfolio của bạn</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(model => model.PorfolioFile, null, new { type = "file", @class = "custom-file-input hov-pointer", @id = "inputGroupFile01" })
+                                                        @*@Html.LabelFor(model => model.PortfolioPath);*@
+                                                        @*@Html.LabelFor(model => model.PortfolioPath,"Choose file to upload CV/Portfolio", new { @class = "custom-file-label" })*@
+                                                        <label id="inputPortfolio" class="custom-file-label" for="inputGroupFile01">
+
+                                                        </label>
+
+
+                                                    </div>
+                                                    <div class="input-group-append">
+
+                                                        @Html.ActionLink("Xem", "", null, htmlAttributes: new { @class = "btn btn-outline-info", @href = Model.PortfolioPath, target = "_blank" })
+                                                        @Html.ActionLink("Clear", "ClearFile", new { filePath = filePath, fileType = "portfolio" }, htmlAttributes: new { @class = "btn btn-outline-danger", })
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case 2:
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>CV/Portfolio của bạn</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(model => model.PorfolioFile, null, new { type = "file", @class = "custom-file-input hov-pointer", @id = "inputGroupFile01" })
+                                                        @*@Html.LabelFor(model => model.PortfolioPath);*@
+                                                        @*@Html.LabelFor(model => model.PortfolioPath,"Choose file to upload CV/Portfolio", new { @class = "custom-file-label" })*@
+                                                        <label id="inputPortfolio" class="custom-file-label" for="inputGroupFile01">
+
+                                                        </label>
+
+
+                                                    </div>
+                                                    <div class="input-group-append">
+
+                                                        @Html.ActionLink("Xem", "", null, htmlAttributes: new { @class = "btn btn-outline-info", @href = Model.PortfolioPath, target = "_blank" })
+                                                        @Html.ActionLink("Clear", "ClearFile", new { filePath = filePath, fileType = "portfolio" }, htmlAttributes: new { @class = "btn btn-outline-danger", })
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case 3:
+
+
+                                        break;
+                                    case 4:
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="inputGroupFile01">Hồ sơ công ty</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(model => model.FirmProfile, null, new { type = "file", @class = "custom-file-input hov-pointer", @id = "inputGroupFile01", required = true })
+                                                        @*@Html.LabelFor(model => model.PortfolioPath);*@
+                                                        @*@Html.LabelFor(model => model.PortfolioPath,"Choose file to upload CV/Portfolio", new { @class = "custom-file-label" })*@
+                                                        <label id="inputFirmProfile" class="custom-file-label" for="inputGroupFile01">
+                                                        </label>
+
+
+                                                    </div>
+                                                    <div class="input-group-append">
+
+                                                        @Html.ActionLink("Xem", "", null, htmlAttributes: new { @class = "btn btn-outline-secondary", @href = Model.FirmProfilePath, target = "_blank" })
+                                                        @Html.ActionLink("Clear", "ClearFile", new { filePath = filePath, fileType = "firmprofile" }, htmlAttributes: new { @class = "btn btn-outline-secondary", })
+                                                        <div class="input-group-text">
+
+                                                            <input type="checkbox" name="IsHideFirmProfile" class="chkHidField" value="@Model.IsHideFirmProfile" checked="@(Model.IsHideFirmProfile == true ? "" : null)" onchange="this.value = this.checked" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @Html.ValidationMessageFor(model => model.FirmProfile, string.Empty, new { @class = "invalid-feedback" })
+
+                                            </div>
+                                        </div>
+                                        break;
+                                    case 5:
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="inputGroupFile01">Hồ sơ công ty</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(model => model.FirmProfile, null, new { type = "file", @class = "custom-file-input hov-pointer", @id = "inputGroupFile01" })
+                                                        @*@Html.LabelFor(model => model.PortfolioPath);*@
+                                                        @*@Html.LabelFor(model => model.PortfolioPath,"Choose file to upload CV/Portfolio", new { @class = "custom-file-label" })*@
+                                                        <label id="inputFirmProfile" class="custom-file-label" for="inputGroupFile01">
+                                                        </label>
+
+
+                                                    </div>
+                                                    <div class="input-group-append">
+
+                                                        @Html.ActionLink("Xem", "", null, htmlAttributes: new { @class = "btn btn-outline-secondary", @href = Model.FirmProfilePath, target = "_blank" })
+                                                        @Html.ActionLink("Clear", "ClearFile", new { filePath = filePath, fileType = "firmprofile" }, htmlAttributes: new { @class = "btn btn-outline-secondary", })
+                                                        <div class="input-group-text">
+
+                                                            <input type="checkbox" name="IsHideFirmProfile" class="chkHidField" value="@Model.IsHideFirmProfile" checked="@(Model.IsHideFirmProfile == true ? "" : null)" onchange="this.value = this.checked" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @Html.ValidationMessageFor(model => model.FirmProfile, string.Empty, new { @class = "invalid-feedback" })
+
+                                            </div>
+                                        </div>
+                                        break;
+                                    case 6:
+
+                                        <div class="col-xl-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="inputGroupFile01">Hồ sơ công ty</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(model => model.FirmProfile, null, new { type = "file", @class = "custom-file-input hov-pointer", @id = "inputGroupFile01", required = true })
+                                                        @*@Html.LabelFor(model => model.PortfolioPath);*@
+                                                        @*@Html.LabelFor(model => model.PortfolioPath,"Choose file to upload CV/Portfolio", new { @class = "custom-file-label" })*@
+                                                        <label id="inputFirmProfile" class="custom-file-label" for="inputGroupFile01">
+
+                                                        </label>
+
+
+                                                    </div>
+                                                    <div class="input-group-append">
+
+                                                        @Html.ActionLink("Xem", "", null, htmlAttributes: new { @class = "btn btn-outline-secondary", @href = Model.FirmProfilePath, target = "_blank" })
+                                                        @Html.ActionLink("Clear", "ClearFile", new { filePath = filePath, fileType = "firmprofile" }, htmlAttributes: new { @class = "btn btn-outline-secondary", })
+                                                        <div class="input-group-text">
+
+                                                            <input type="checkbox" name="IsHideFirmProfile" class="chkHidField" value="@Model.IsHideFirmProfile" checked="@(Model.IsHideFirmProfile == true ? "" : null)" onchange="this.value = this.checked" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="inputGroupFile01">Báo cáo tài chính công ty</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(model => model.FinancialStatementFile, null, new { type = "file", @class = "custom-file-input hov-pointer", @id = "inputGroupFile01", required = true })
+                                                        @*@Html.LabelFor(model => model.PortfolioPath);*@
+                                                        @*@Html.LabelFor(model => model.PortfolioPath,"Choose file to upload CV/Portfolio", new { @class = "custom-file-label" })*@
+                                                        <label id="inputFinancialProfile" class="custom-file-label" for="inputGroupFile01">
+
+                                                        </label>
+
+
+                                                    </div>
+                                                    <div class="input-group-append">
+
+                                                        @Html.ActionLink("Xem", "", null, htmlAttributes: new { @class = "btn btn-outline-secondary", @href = Model.FinancialStatementFilePath, target = "_blank" })
+                                                        @Html.ActionLink("Clear", "ClearFile", new { filePath = filePath, fileType = "financialfile" }, htmlAttributes: new { @class = "btn btn-outline-secondary", })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case 7:
+
+                                        <div class="col-xl-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="inputGroupFile01">Hồ sơ công ty</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(model => model.FirmProfile, null, new { type = "file", @class = "custom-file-input hov-pointer", @id = "inputGroupFile01", required = true })
+                                                        @*@Html.LabelFor(model => model.PortfolioPath);*@
+                                                        @*@Html.LabelFor(model => model.PortfolioPath,"Choose file to upload CV/Portfolio", new { @class = "custom-file-label" })*@
+                                                        <label id="inputFirmProfile" class="custom-file-label" for="inputGroupFile01">
+
+                                                        </label>
+
+
+                                                    </div>
+                                                    <div class="input-group-append">
+
+                                                        @Html.ActionLink("Xem", "", null, htmlAttributes: new { @class = "btn btn-outline-secondary", @href = Model.FirmProfilePath, target = "_blank" })
+                                                        @Html.ActionLink("Clear", "ClearFile", new { filePath = filePath, fileType = "firmprofile" }, htmlAttributes: new { @class = "btn btn-outline-secondary", })
+                                                        <div class="input-group-text">
+
+                                                            <input type="checkbox" name="IsHideFirmProfile" class="chkHidField" value="@Model.IsHideFirmProfile" checked="@(Model.IsHideFirmProfile == true ? "" : null)" onchange="this.value = this.checked" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="inputGroupFile01">Báo cáo tài chính công ty</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        @Html.TextBoxFor(model => model.FinancialStatementFile, null, new { type = "file", @class = "custom-file-input hov-pointer", @id = "inputGroupFile01", required = true })
+                                                        @*@Html.LabelFor(model => model.PortfolioPath);*@
+                                                        @*@Html.LabelFor(model => model.PortfolioPath,"Choose file to upload CV/Portfolio", new { @class = "custom-file-label" })*@
+                                                        <label id="inputFinancialProfile" class="custom-file-label" for="inputGroupFile01">
+
+                                                        </label>
+
+
+                                                    </div>
+                                                    <div class="input-group-append">
+
+                                                        @Html.ActionLink("Xem", "", null, htmlAttributes: new { @class = "btn btn-outline-secondary", @href = Model.FinancialStatementFilePath, target = "_blank" })
+                                                        @Html.ActionLink("Clear", "ClearFile", new { filePath = filePath, fileType = "financialfile" }, htmlAttributes: new { @class = "btn btn-outline-secondary", })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
+                        </div>
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-auto">
+                                <input type="submit" class="boxed-btn3" value="Upload" />
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- job_listing_area_end  -->
+
+    @section Scripts {
+        <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/js/owl.carousel.min.js"></script>
+        <script src="~/js/isotope.pkgd.min.js"></script>
+        <script src="~/js/ajax-form.js"></script>
+        <script src="~/js/waypoints.min.js"></script>
+        <script src="~/js/jquery.counterup.min.js"></script>
+        <script src="~/js/imagesloaded.pkgd.min.js"></script>
+        <script src="~/js/scrollIt.js"></script>
+        <script src="~/js/jquery.scrollUp.min.js"></script>
+        <script src="~/js/wow.min.js"></script>
+        <script src="~/js/nice-select.min.js"></script>
+        <script src="~/js/jquery.slicknav.min.js"></script>
+        <script src="~/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/js/plugins.js"></script>
+        @*<script src="~/js/gijgo.min.js"></script>*@
+        <script src="~/js/range.js"></script>
+
+
+
+        <!--contact js-->
+        <script src="~/js/contact.js"></script>
+        <script src="~/js/jquery.ajaxchimp.min.js"></script>
+        <script src="~/js/jquery.form.js"></script>
+        <script src="~/js/mail-script.js"></script>
+        <script src="~/js/jquery.validate.min.js"></script>
+
+
+        <script src="~/js/main.js"></script>
+
+
+        <script>
+        $(function () {
+            $("#slider-range").slider({
+                                            range: true,
+                min: 0,
+                max: 24600,
+                values: [750, 24600],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1] + "/ Year");
+                                                }
+                                            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+                " - $" + $("#slider-range").slider("values", 1) + "/ Year");
+            $("#sltSubject").on("change", function (e) {
+                window.location.href = "@Url.Action("SelectGroup","User")" + "?accountTypeId=" + @Model.GroupId + "&subjectTypeId=" + e.target.value;
+
+            });
+
+            $("#sltSpecialityGroup").change(function (e) {
+
+
+
+                window.location.href = '@Url.Action("Select_SpecializeGroup", "User")' + "?specializeGroupId=" + e.target.value;
+            });
+        });
+        function onchangeSpecializations(item) {
+        }
+        let showImage = (evt) => {
+            let divForm = $(evt).parent()
+            let imgTag = $(divForm).find("img")
+            let fileName = $(evt)[0].files[0]
+
+            var ext = fileName.name.split('.').pop().toLowerCase();
+            if (ext !== 'jpg' && ext !== 'jpeg' && ext !== 'png') {
+                alert('Chỉ hỗ trợ file hình ảnh jpg, jpeg, png');
+                $(evt)[0].value = ""
+                return;
+            }
+            $(imgTag).attr("src", URL.createObjectURL(fileName))
+            $(imgTag).show()
+        }
+
+        const file_input = $('#inputGroupFile01');
+        file_input.change((e) => {
+            var fileLenth = e.target.files.length;
+            if (fileLenth > 0)
+            {
+                var fileName = e.target.files[0].name;
+                var nextSibling = e.target.nextElementSibling
+                nextSibling.innerText = fileName
+            }
+
+        });
+            const InputFile = (filePath, selector) => {
+                     var textValue = "Choose file to upload";
+                var portfolioPath = filePath;
+                if (portfolioPath !== "") {
+                    var splitStr = portfolioPath.split("/");
+                    textValue = splitStr[splitStr.length - 1];
+                }
+                $(selector).html(textValue);
+            }
+            $(document).ready(function () {
+                InputFile("@Model.PortfolioPath", "#inputPortfolio");
+                InputFile("@Model.FirmProfilePath", "#inputFirmProfile");
+                InputFile("@Model.FinancialStatementFilePath", "#inputFinancial");
+
+                $(".chkHidField").change(function (e) {
+                var isChecked = e.target.checked;
+                var input = $(this).parents(".input-group").children().first();
+                var input1 = $(this).parents(".input-group").children(".custom-file").children();
+                //console.log($(".input-group > input"))
+                if (isChecked) {
+                    input.attr('type', 'password');
+                    input1.attr('type', 'password');
+
+                }
+                else {
+                    input.attr('type', 'text');
+                    input1.attr('type', 'text');
+                }
+            });
+        })
+        //Custom DetailAccount Page
+        $(document).ready(function () {
+            var requiredSub = "<sup class='text-danger'> *</sup>";
+            var requiredInputs = $("[required*=True]").parents().children("label").append(requiredSub);
+            console.log(requiredInputs);
+            var emailInputs = $("input[id*=email]");
+            var emailInput2s = $("input[id*=Email]");
+            emailInputs.attr("readonly", true);
+            emailInput2s.attr("readonly", true);
+        });
+        </script>
+    }

@@ -1,0 +1,25 @@
+﻿.header-area .main-header-area .main-menu ul li.isActive > a {
+    color: #00D363 !important;
+}
+
+@media (max-width: 1024px) {
+    .phone_num {
+        position: absolute;
+        right: 0;
+        margin-right: 64px !important;
+        top: -32px;
+        white-space: nowrap;
+    }
+    .Appointment .avatar {
+        position: absolute;
+        right: 0;
+        margin-right: 52px !important;
+        top: -44px;
+        white-space: nowrap;
+    }
+}
+
+.phone_num a:hover {
+    color: #00D363 !important;
+}
+
